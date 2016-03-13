@@ -362,7 +362,9 @@ uis.controller('uiSelectCtrl',
           }
           // search ctrl.selected for dupes potentially caused by tagging and return early if found
           if ( ctrl.selected && angular.isArray(ctrl.selected) && ctrl.selected.filter( function (selection) { return angular.equals(selection, item); }).length > 0 ) {
-            ctrl.close(skipFocusser);
+            if(ctrl.open){
+              ctrl.close(skipFocusser);
+            }
             return;
           }
         } else {
@@ -396,10 +398,6 @@ uis.controller('uiSelectCtrl',
     if (!ctrl.open) return;
     if (ctrl.ngModel && ctrl.ngModel.$setTouched) ctrl.ngModel.$setTouched();
     
-    if(ctrl.tagging.isActivated){
-      ctrl.select(undefined);
-    }
-
     _resetSearchInput();
     ctrl.open = false;
 

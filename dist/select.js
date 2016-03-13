@@ -1,7 +1,7 @@
 /*!
  * ui-select
  * http://github.com/angular-ui/ui-select
- * Version: 0.14.10 - 2016-03-13T19:14:49.846Z
+ * Version: 0.14.10 - 2016-03-13T19:20:19.897Z
  * License: MIT
  */
 
@@ -621,7 +621,9 @@ uis.controller('uiSelectCtrl',
           }
           // search ctrl.selected for dupes potentially caused by tagging and return early if found
           if ( ctrl.selected && angular.isArray(ctrl.selected) && ctrl.selected.filter( function (selection) { return angular.equals(selection, item); }).length > 0 ) {
-            ctrl.close(skipFocusser);
+            if(ctrl.open){
+              ctrl.close(skipFocusser);
+            }
             return;
           }
         } else {
@@ -655,10 +657,6 @@ uis.controller('uiSelectCtrl',
     if (!ctrl.open) return;
     if (ctrl.ngModel && ctrl.ngModel.$setTouched) ctrl.ngModel.$setTouched();
     
-    if(ctrl.tagging.isActivated){
-      ctrl.select(undefined);
-    }
-
     _resetSearchInput();
     ctrl.open = false;
 
