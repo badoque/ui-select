@@ -11,6 +11,7 @@ uis.controller('uiSelectCtrl',
   var ctrl = this;
 
   var EMPTY_SEARCH = '';
+  var NEW_TAG_CREATED = false;
 
   ctrl.placeholder = uiSelectConfig.placeholder;
   ctrl.searchEnabled = uiSelectConfig.searchEnabled;
@@ -329,6 +330,9 @@ uis.controller('uiSelectCtrl',
               item = ctrl.tagging.fct !== undefined ? ctrl.tagging.fct(ctrl.search) : ctrl.search;
               if (!item || angular.equals( ctrl.items[0], item ) ) {
                 return;
+              } else {
+                NEW_TAG_CREATED = true;
+                _resetSearchInput();
               }
             } else {
               // keyboard nav happened first, user selected from dropdown
@@ -347,29 +351,34 @@ uis.controller('uiSelectCtrl',
               if ( ctrl.tagging.fct !== undefined && typeof item === 'string' ) {
                 item = ctrl.tagging.fct(item);
                 if (!item) return;
+                else {
+                  NEW_TAG_CREATED = true;
+                  _resetSearchInput();
+                }
               // if item type is 'string', apply the tagging label
               } else if ( typeof item === 'string' ) {
                 // trim the trailing space
                 item = item.replace(ctrl.taggingLabel,'').trim();
-              }
+              } 
             } else {
               
               item = ctrl.tagging.fct !== undefined ? ctrl.tagging.fct(ctrl.search) : ctrl.search;
               if (!item || angular.equals( ctrl.items[0], item ) ) {
                 return;
+              } else {
+                NEW_TAG_CREATED = true;
+                _resetSearchInput();
               }
             }
           }
           // search ctrl.selected for dupes potentially caused by tagging and return early if found
           if ( ctrl.selected && angular.isArray(ctrl.selected) && ctrl.selected.filter( function (selection) { return angular.equals(selection, item); }).length > 0 ) {
-            if(ctrl.open){
-              ctrl.close(skipFocusser);
-            }
+            ctrl.close(skipFocusser);
             return;
           }
-        } else {
 
-        }
+
+        } 
 
         $scope.$broadcast('uis:select', item);
 
@@ -383,7 +392,7 @@ uis.controller('uiSelectCtrl',
           });
         });
 
-        if (ctrl.closeOnSelect && ctrl.open) {
+        if (ctrl.closeOnSelect) {
           ctrl.close(skipFocusser);
         }
         if ($event && $event.type === 'click') {
@@ -398,6 +407,11 @@ uis.controller('uiSelectCtrl',
     if (!ctrl.open) return;
     if (ctrl.ngModel && ctrl.ngModel.$setTouched) ctrl.ngModel.$setTouched();
     
+    if(ctrl.tagging.isActivated && NEW_TAG_CREATED){
+      ctrl.select(undefined);
+    }
+
+    NEW_TAG_CREATED = false;
     _resetSearchInput();
     ctrl.open = false;
 
