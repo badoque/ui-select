@@ -352,6 +352,12 @@ uis.controller('uiSelectCtrl',
                 // trim the trailing space
                 item = item.replace(ctrl.taggingLabel,'').trim();
               }
+            } else {
+              
+              item = ctrl.tagging.fct !== undefined ? ctrl.tagging.fct(ctrl.search) : ctrl.search;
+              if (!item || angular.equals( ctrl.items[0], item ) ) {
+                return;
+              }
             }
           }
           // search ctrl.selected for dupes potentially caused by tagging and return early if found
@@ -359,6 +365,8 @@ uis.controller('uiSelectCtrl',
             ctrl.close(skipFocusser);
             return;
           }
+        } else {
+
         }
 
         $scope.$broadcast('uis:select', item);
