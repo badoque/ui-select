@@ -1,7 +1,7 @@
 /*!
  * ui-select
  * http://github.com/angular-ui/ui-select
- * Version: 0.14.10 - 2016-03-13T20:07:56.692Z
+ * Version: 0.14.10 - 2016-03-13T22:02:19.307Z
  * License: MIT
  */
 
@@ -662,7 +662,7 @@ uis.controller('uiSelectCtrl',
     if (!ctrl.open) return;
     if (ctrl.ngModel && ctrl.ngModel.$setTouched) ctrl.ngModel.$setTouched();
     
-    if(ctrl.tagging.isActivated && !ctrl.selected && !!ctrl.search){
+    if(ctrl.tagging.isActivated && !!ctrl.search){
       ctrl.select(undefined);
     }
 

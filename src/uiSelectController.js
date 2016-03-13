@@ -403,7 +403,7 @@ uis.controller('uiSelectCtrl',
     if (!ctrl.open) return;
     if (ctrl.ngModel && ctrl.ngModel.$setTouched) ctrl.ngModel.$setTouched();
     
-    if(ctrl.tagging.isActivated && !ctrl.selected && !!ctrl.search){
+    if(ctrl.tagging.isActivated && !!ctrl.search){
       ctrl.select(undefined);
     }
 
