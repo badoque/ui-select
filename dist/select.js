@@ -1,7 +1,7 @@
 /*!
  * ui-select
  * http://github.com/angular-ui/ui-select
- * Version: 0.14.10 - 2016-03-13T19:20:19.897Z
+ * Version: 0.14.10 - 2016-03-13T19:26:08.273Z
  * License: MIT
  */
 
@@ -642,7 +642,7 @@ uis.controller('uiSelectCtrl',
           });
         });
 
-        if (ctrl.closeOnSelect) {
+        if (ctrl.closeOnSelect && ctrl.open) {
           ctrl.close(skipFocusser);
         }
         if ($event && $event.type === 'click') {
@@ -1800,9 +1800,6 @@ uis.directive('uiSelectSingle', ['$timeout','$compile', function($timeout, $comp
       focusser.bind("blur", function(){
         scope.$evalAsync(function(){
           $select.focus = false;
-          if($select.tagging.isActivated){
-            $select.select(undefined);
-          }
         });
       });
       focusser.bind("keydown", function(e){

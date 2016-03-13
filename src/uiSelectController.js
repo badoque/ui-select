@@ -383,7 +383,7 @@ uis.controller('uiSelectCtrl',
           });
         });
 
-        if (ctrl.closeOnSelect) {
+        if (ctrl.closeOnSelect && ctrl.open) {
           ctrl.close(skipFocusser);
         }
         if ($event && $event.type === 'click') {

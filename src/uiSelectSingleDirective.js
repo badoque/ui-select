@@ -81,9 +81,6 @@ uis.directive('uiSelectSingle', ['$timeout','$compile', function($timeout, $comp
       focusser.bind("blur", function(){
         scope.$evalAsync(function(){
           $select.focus = false;
-          if($select.tagging.isActivated){
-            $select.select(undefined);
-          }
         });
       });
       focusser.bind("keydown", function(e){
