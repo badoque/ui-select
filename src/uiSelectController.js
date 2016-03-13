@@ -396,13 +396,13 @@ uis.controller('uiSelectCtrl',
     if (!ctrl.open) return;
     if (ctrl.ngModel && ctrl.ngModel.$setTouched) ctrl.ngModel.$setTouched();
     
-    if($select.tagging.isActivated){
-      $select.select(undefined);
+    if(ctrl.tagging.isActivated){
+      ctrl.select(undefined);
     }
 
     _resetSearchInput();
     ctrl.open = false;
-    
+
     $scope.$broadcast('uis:close', skipFocusser);
 
   };
