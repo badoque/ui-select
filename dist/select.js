@@ -1,7 +1,7 @@
 /*!
  * ui-select
  * http://github.com/angular-ui/ui-select
- * Version: 0.14.10 - 2016-03-13T20:02:24.358Z
+ * Version: 0.14.10 - 2016-03-13T20:07:56.692Z
  * License: MIT
  */
 
@@ -270,7 +270,6 @@ uis.controller('uiSelectCtrl',
   var ctrl = this;
 
   var EMPTY_SEARCH = '';
-  var NEW_TAG_CREATED = false;
 
   ctrl.placeholder = uiSelectConfig.placeholder;
   ctrl.searchEnabled = uiSelectConfig.searchEnabled;
@@ -590,7 +589,6 @@ uis.controller('uiSelectCtrl',
               if (!item || angular.equals( ctrl.items[0], item ) ) {
                 return;
               } else {
-                NEW_TAG_CREATED = true;
                 _resetSearchInput();
               }
             } else {
@@ -611,7 +609,6 @@ uis.controller('uiSelectCtrl',
                 item = ctrl.tagging.fct(item);
                 if (!item) return;
                 else {
-                  NEW_TAG_CREATED = true;
                   _resetSearchInput();
                 }
               // if item type is 'string', apply the tagging label
@@ -625,7 +622,6 @@ uis.controller('uiSelectCtrl',
               if (!item || angular.equals( ctrl.items[0], item ) ) {
                 return;
               } else {
-                NEW_TAG_CREATED = true;
                 _resetSearchInput();
               }
             }
@@ -666,11 +662,10 @@ uis.controller('uiSelectCtrl',
     if (!ctrl.open) return;
     if (ctrl.ngModel && ctrl.ngModel.$setTouched) ctrl.ngModel.$setTouched();
     
-    if(ctrl.tagging.isActivated && NEW_TAG_CREATED){
+    if(ctrl.tagging.isActivated && !ctrl.selected && !!ctrl.search){
       ctrl.select(undefined);
     }
 
-    NEW_TAG_CREATED = false;
     _resetSearchInput();
     ctrl.open = false;
 
