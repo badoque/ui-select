@@ -600,12 +600,19 @@ uis.controller('uiSelectCtrl',
               // create new item on the fly if we don't already have one;
               // use tagging function if we have one
               if ( ctrl.tagging.fct !== undefined && typeof item === 'string' ) {
-                item = ctrl.tagging.fct(item);
+                item = ctrl.tagging.fct(ctrl.search);
                 if (!item) return;
               // if item type is 'string', apply the tagging label
               } else if ( typeof item === 'string' ) {
                 // trim the trailing space
                 item = item.replace(ctrl.taggingLabel,'').trim();
+              }
+            }
+            else {
+              
+              item = ctrl.tagging.fct !== undefined ? ctrl.tagging.fct(ctrl.search) : ctrl.search;
+              if (!item || angular.equals( ctrl.items[0], item ) ) {
+                return;
               }
             }
           }
