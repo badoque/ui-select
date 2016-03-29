@@ -357,15 +357,7 @@ uis.controller('uiSelectCtrl',
                 // trim the trailing space
                 item = item.replace(ctrl.taggingLabel,'').trim();
               } 
-            } else {
-              
-              item = ctrl.tagging.fct !== undefined ? ctrl.tagging.fct(ctrl.search) : ctrl.search;
-              if (!item || angular.equals( ctrl.items[0], item ) ) {
-                return;
-              } else {
-                _resetSearchInput();
-              }
-            }
+            } 
           }
           // search ctrl.selected for dupes potentially caused by tagging and return early if found
           if ( ctrl.selected && angular.isArray(ctrl.selected) && ctrl.selected.filter( function (selection) { return angular.equals(selection, item); }).length > 0 ) {
